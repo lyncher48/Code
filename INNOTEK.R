@@ -1,0 +1,118 @@
+#---------Data List----------
+####ID0_TOTAL.csv - Main Power
+####ID2_TOTAL.csv - TMP Pump #1
+####ID14_TOTAL.csv - Power Supply
+####STAGE_CODE.csv - MP, Burning, Beading List
+ 
+#------------ Data Reading -------------
+#ID0_Data <- read.csv("/home/mooyeob.lee/Data/ID0_TOTAL.csv")
+#ID2_Data <- read.csv("/home/mooyeob.lee/Data/ID2_TOTAL.csv")
+#ID14_Data <- read.csv("/home/mooyeob.lee/Data/ID14_TOTAL.csv")
+#Stage_Data <- read.csv("/home/mooyeob.lee/Data/STAGE_CODE.csv")
+
+
+install.packages('markdown', repos = 'http://rforge.net')
+install.packages('knitr', repos = c('http://rforge.net', 'http://cran.rstudio.org'), type = 'source')
+
+```{r Data Reading}
+Stage_ref_table <- c()
+rrStage_ref_table$ID <- Stage_Data$n
+Stage_ref_table$STAGE[grep('HTM_MP', Stage_Data$sum.1n.)] <-  'HTM_MP'
+Stage_ref_table$STAGE[grep('MB_MP_DFM', Stage_Data$sum.1n.)] <-  'MB_MP_DFM'
+Stage_ref_table$STAGE[grep('TRAY_Beading_Burning', Stage_Data$sum.1n.)] <-  'TRAY_Beading'
+Stage_ref_table$STAGE[grep('MB_MP_QFM', Stage_Data$sum.1n.)] <-  'MB_MP_QFM'
+Stage_ref_table$STAGE[grep('MB BURNING', Stage_Data$sum.1n.)] <-  'MB_BURNING'
+Stage_ref_table$STAGE[grep('MB_MP_ZFA', Stage_Data$sum.1n.)] <-  'MB_MP_ZFA'
+Stage_ref_table$STAGE[grep('MB_MP_T', Stage_Data$sum.1n.)] <-  'MB_MP_T'
+data.frame(Stage_ref_table)
+```
+```{r engine='R'}
+x <- c(1,2,3)
+x
+```
+
+#------------ Data Reading -------------
+#####Creating Indicators
+Stage_ref_table <- c()
+rrStage_ref_table$ID <- Stage_Data$n
+Stage_ref_table$STAGE[grep('HTM_MP', Stage_Data$sum.1n.)] <-  'HTM_MP'
+Stage_ref_table$STAGE[grep('MB_MP_DFM', Stage_Data$sum.1n.)] <-  'MB_MP_DFM'
+Stage_ref_table$STAGE[grep('TRAY_Beading_Burning', Stage_Data$sum.1n.)] <-  'TRAY_Beading'
+Stage_ref_table$STAGE[grep('MB_MP_QFM', Stage_Data$sum.1n.)] <-  'MB_MP_QFM'
+Stage_ref_table$STAGE[grep('MB BURNING', Stage_Data$sum.1n.)] <-  'MB_BURNING'
+Stage_ref_table$STAGE[grep('MB_MP_ZFA', Stage_Data$sum.1n.)] <-  'MB_MP_ZFA'
+Stage_ref_table$STAGE[grep('MB_MP_T', Stage_Data$sum.1n.)] <-  'MB_MP_T'
+data.frame(Stage_ref_table)
+
+#----------- Data Handling -------------
+####n = 198 <- Delete sample data
+ID0_Data_H1 <- ID0_Data[-which(ID0_Data$STAGE == 198),]
+ID2_Data_H1 <- ID2_Data[-which(ID2_Data$STAGE == 198),]
+ID14_Data_H1 <- ID14_Data[-which(ID14_Data$STAGE == 198),]
+#levels(factor(ID0_Data_H1$STAGE))
+n <- length(ID0_Data_H1$STAGE)
+for (i in 1:n)
+{
+  which( == Stage_ref_table$ID)  
+}
+
+####Creating Indicators
+PD <- plyr::mapvalues(ID0_Data_H1$STAGE,
+                      from = Stage_ref_table$ID,
+                      to = Stage_ref_table$STAGE)
+ID0_Data_H2 <- cbind(ID0_Data_H1, PD)
+
+PD2 <- plyr::mapvalues(ID2_Data_H1$STAGE,
+                       from = Stage_ref_table$ID,
+                       to = Stage_ref_table$STAGE)
+ID2_Data_H2 <- cbind(ID2_Data_H1, PD2)
+
+PD14 <- plyr::mapvalues(ID14_Data_H1$STAGE,
+                        from = Stage_ref_table$ID,
+                        to = Stage_ref_table$STAGE)
+ID14_Data_H2 <- cbind(ID14_Data_H1, PD14)
+levels(factor(PD2))
+max(
+  ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == "HTM_MP")]
+  
+  ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == "MB_BURNING")]
+  ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == "MB_MP_DFM")]
+  ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == "MB_MP_QFM")]
+  ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == "MB_MP_T")]
+  ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == "MB_MP_ZFA")]
+  
+  max(ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == "TRAY_Beading")], na.rm = TRUE)
+  min(ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == "TRAY_Beading")], na.rm = TRUE)
+  max(ID0_Data_H2$X220VID0_Current_TDD_B.Mean.data_value.[which(ID0_Data_H2$PD == "TRAY_Beading")], na.rm = TRUE)
+  min(ID0_Data_H2$X220VID0_Current_TDD_B.Mean.data_value.[which(ID0_Data_H2$PD == "TRAY_Beading")], na.rm = TRUE)
+  max(ID0_Data_H2$X220VID0_Current_TDD_C.Mean.data_value.[which(ID0_Data_H2$PD == "TRAY_Beading")], na.rm = TRUE)
+  min(ID0_Data_H2$X220VID0_Current_TDD_C.Mean.data_value.[which(ID0_Data_H2$PD == "TRAY_Beading")], na.rm = TRUE)
+  
+  max(ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == "HTM_MP")], na.rm = TRUE)
+  min(ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == "HTM_MP")], na.rm = TRUE)
+  max(ID0_Data_H2$X220VID0_Current_TDD_B.Mean.data_value.[which(ID0_Data_H2$PD == "HTM_MP")], na.rm = TRUE)
+  min(ID0_Data_H2$X220VID0_Current_TDD_B.Mean.data_value.[which(ID0_Data_H2$PD == "HTM_MP")], na.rm = TRUE)
+  max(ID0_Data_H2$X220VID0_Current_TDD_C.Mean.data_value.[which(ID0_Data_H2$PD == "HTM_MP")], na.rm = TRUE)
+  min(ID0_Data_H2$X220VID0_Current_TDD_C.Mean.data_value.[which(ID0_Data_H2$PD == "HTM_MP")], na.rm = TRUE)
+  
+  max(ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == "MB_MP_DFM")], na.rm = TRUE)
+  min(ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == "MB_MP_DFM")], na.rm = TRUE)
+  max(ID0_Data_H2$X220VID0_Current_TDD_B.Mean.data_value.[which(ID0_Data_H2$PD == "MB_MP_DFM")], na.rm = TRUE)
+  min(ID0_Data_H2$X220VID0_Current_TDD_B.Mean.data_value.[which(ID0_Data_H2$PD == "MB_MP_DFM")], na.rm = TRUE)
+  max(ID0_Data_H2$X220VID0_Current_TDD_C.Mean.data_value.[which(ID0_Data_H2$PD == "MB_MP_DFM")], na.rm = TRUE)
+  min(ID0_Data_H2$X220VID0_Current_TDD_C.Mean.data_value.[which(ID0_Data_H2$PD == "MB_MP_DFM")], na.rm = TRUE)
+  
+  max(ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == "MB_MP_QFM")], na.rm = TRUE)
+  min(ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == "MB_MP_QFM")], na.rm = TRUE)
+  max(ID0_Data_H2$X220VID0_Current_TDD_B.Mean.data_value.[which(ID0_Data_H2$PD == "MB_MP_QFM")], na.rm = TRUE)
+  min(ID0_Data_H2$X220VID0_Current_TDD_B.Mean.data_value.[which(ID0_Data_H2$PD == "MB_MP_QFM")], na.rm = TRUE)
+  max(ID0_Data_H2$X220VID0_Current_TDD_C.Mean.data_value.[which(ID0_Data_H2$PD == "MB_MP_QFM")], na.rm = TRUE)
+  min(ID0_Data_H2$X220VID0_Current_TDD_C.Mean.data_value.[which(ID0_Data_H2$PD == "MB_MP_QFM")], na.rm = TRUE)
+  
+  install.packages("ggplot2")
+  library(ggplot2)
+  plot(ID0_Data_H2$X.Date[which(ID0_Data_H2$STAGE == 2)], ID0_Data_H2$X220VID0_Active_Power_Pa.Mean.data_value.[which(ID0_Data_H2$STAGE == 2)])
+  plot(ID0_Data_H2$X.Date, ID0_Data_H2$X220VID0_Active_Power_Pb.Mean.data_value.)
+  plot(ID0_Data_H2$X.Date, ID0_Data_H2$X220VID0_Active_Power_Pc.Mean.data_value.)
+  
+  

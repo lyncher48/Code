@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title></title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<p>#&mdash;&mdash;&mdash;Data List&mdash;&mdash;&mdash;-
+####ID0_TOTAL.csv - Main Power
+####ID2_TOTAL.csv - TMP Pump #1
+####ID14_TOTAL.csv - Power Supply
+####STAGE_CODE.csv - MP, Burning, Beading List</p>
+
+<p>#&mdash;&mdash;&mdash;&mdash; Data Reading &mdash;&mdash;&mdash;&mdash;-
+#ID0_Data &lt;- read.csv(&ldquo;/home/mooyeob.lee/Data/ID0_TOTAL.csv&rdquo;)
+#ID2_Data &lt;- read.csv(&ldquo;/home/mooyeob.lee/Data/ID2_TOTAL.csv&rdquo;)
+#ID14_Data &lt;- read.csv(&ldquo;/home/mooyeob.lee/Data/ID14_TOTAL.csv&rdquo;)
+#Stage_Data &lt;- read.csv(&ldquo;/home/mooyeob.lee/Data/STAGE_CODE.csv&rdquo;)</p>
+
+<p>install.packages(&#39;markdown&#39;, repos = &#39;<a href="http://rforge.net&#x27;">http://rforge.net&#39;</a>)
+install.packages(&#39;knitr&#39;, repos = c(&#39;<a href="http://rforge.net">http://rforge.net</a>&#39;, &#39;<a href="http://cran.rstudio.org&#x27;">http://cran.rstudio.org&#39;</a>), type = &#39;source&#39;)</p>
+
+<pre><code class="r Data Reading">Stage_ref_table &lt;- c()
+rrStage_ref_table$ID &lt;- Stage_Data$n
+Stage_ref_table$STAGE[grep(&#39;HTM_MP&#39;, Stage_Data$sum.1n.)] &lt;-  &#39;HTM_MP&#39;
+Stage_ref_table$STAGE[grep(&#39;MB_MP_DFM&#39;, Stage_Data$sum.1n.)] &lt;-  &#39;MB_MP_DFM&#39;
+Stage_ref_table$STAGE[grep(&#39;TRAY_Beading_Burning&#39;, Stage_Data$sum.1n.)] &lt;-  &#39;TRAY_Beading&#39;
+Stage_ref_table$STAGE[grep(&#39;MB_MP_QFM&#39;, Stage_Data$sum.1n.)] &lt;-  &#39;MB_MP_QFM&#39;
+Stage_ref_table$STAGE[grep(&#39;MB BURNING&#39;, Stage_Data$sum.1n.)] &lt;-  &#39;MB_BURNING&#39;
+Stage_ref_table$STAGE[grep(&#39;MB_MP_ZFA&#39;, Stage_Data$sum.1n.)] &lt;-  &#39;MB_MP_ZFA&#39;
+Stage_ref_table$STAGE[grep(&#39;MB_MP_T&#39;, Stage_Data$sum.1n.)] &lt;-  &#39;MB_MP_T&#39;
+data.frame(Stage_ref_table)
+</code></pre>
+
+<pre><code class="r engine=&#39;R&#39;">x &lt;- c(1,2,3)
+x
+</code></pre>
+
+<p>#&mdash;&mdash;&mdash;&mdash; Data Reading &mdash;&mdash;&mdash;&mdash;-
+#####Creating Indicators
+Stage_ref_table &lt;- c()
+rrStage_ref_table$ID &lt;- Stage_Data$n
+Stage_ref_table$STAGE[grep(&#39;HTM_MP&#39;, Stage_Data$sum.1n.)] &lt;-  &#39;HTM_MP&#39;
+Stage_ref_table$STAGE[grep(&#39;MB_MP_DFM&#39;, Stage_Data$sum.1n.)] &lt;-  &#39;MB_MP_DFM&#39;
+Stage_ref_table$STAGE[grep(&#39;TRAY_Beading_Burning&#39;, Stage_Data$sum.1n.)] &lt;-  &#39;TRAY_Beading&#39;
+Stage_ref_table$STAGE[grep(&#39;MB_MP_QFM&#39;, Stage_Data$sum.1n.)] &lt;-  &#39;MB_MP_QFM&#39;
+Stage_ref_table$STAGE[grep(&#39;MB BURNING&#39;, Stage_Data$sum.1n.)] &lt;-  &#39;MB_BURNING&#39;
+Stage_ref_table$STAGE[grep(&#39;MB_MP_ZFA&#39;, Stage_Data$sum.1n.)] &lt;-  &#39;MB_MP_ZFA&#39;
+Stage_ref_table$STAGE[grep(&#39;MB_MP_T&#39;, Stage_Data$sum.1n.)] &lt;-  &#39;MB_MP_T&#39;
+data.frame(Stage_ref_table)</p>
+
+<p>#&mdash;&mdash;&mdash;&ndash; Data Handling &mdash;&mdash;&mdash;&mdash;-
+####n = 198 &lt;- Delete sample data
+ID0_Data_H1 &lt;- ID0_Data[-which(ID0_Data$STAGE == 198),]
+ID2_Data_H1 &lt;- ID2_Data[-which(ID2_Data$STAGE == 198),]
+ID14_Data_H1 &lt;- ID14_Data[-which(ID14_Data$STAGE == 198),]
+#levels(factor(ID0_Data_H1$STAGE))
+n &lt;- length(ID0_Data_H1$STAGE)
+for (i in 1:n)
+{
+  which( == Stage_ref_table$ID)<br/>
+}</p>
+
+<p>####Creating Indicators
+PD &lt;- plyr::mapvalues(ID0_Data_H1$STAGE,
+                      from = Stage_ref_table$ID,
+                      to = Stage_ref_table$STAGE)
+ID0_Data_H2 &lt;- cbind(ID0_Data_H1, PD)</p>
+
+<p>PD2 &lt;- plyr::mapvalues(ID2_Data_H1$STAGE,
+                       from = Stage_ref_table$ID,
+                       to = Stage_ref_table$STAGE)
+ID2_Data_H2 &lt;- cbind(ID2_Data_H1, PD2)</p>
+
+<p>PD14 &lt;- plyr::mapvalues(ID14_Data_H1$STAGE,
+                        from = Stage_ref_table$ID,
+                        to = Stage_ref_table$STAGE)
+ID14_Data_H2 &lt;- cbind(ID14_Data_H1, PD14)
+levels(factor(PD2))
+max(
+  ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;HTM_MP&rdquo;)]</p>
+
+<p>ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;MB_BURNING&rdquo;)]
+  ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;MB_MP_DFM&rdquo;)]
+  ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;MB_MP_QFM&rdquo;)]
+  ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;MB_MP_T&rdquo;)]
+  ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;MB_MP_ZFA&rdquo;)]</p>
+
+<p>max(ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;TRAY_Beading&rdquo;)], na.rm = TRUE)
+  min(ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;TRAY_Beading&rdquo;)], na.rm = TRUE)
+  max(ID0_Data_H2$X220VID0_Current_TDD_B.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;TRAY_Beading&rdquo;)], na.rm = TRUE)
+  min(ID0_Data_H2$X220VID0_Current_TDD_B.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;TRAY_Beading&rdquo;)], na.rm = TRUE)
+  max(ID0_Data_H2$X220VID0_Current_TDD_C.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;TRAY_Beading&rdquo;)], na.rm = TRUE)
+  min(ID0_Data_H2$X220VID0_Current_TDD_C.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;TRAY_Beading&rdquo;)], na.rm = TRUE)</p>
+
+<p>max(ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;HTM_MP&rdquo;)], na.rm = TRUE)
+  min(ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;HTM_MP&rdquo;)], na.rm = TRUE)
+  max(ID0_Data_H2$X220VID0_Current_TDD_B.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;HTM_MP&rdquo;)], na.rm = TRUE)
+  min(ID0_Data_H2$X220VID0_Current_TDD_B.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;HTM_MP&rdquo;)], na.rm = TRUE)
+  max(ID0_Data_H2$X220VID0_Current_TDD_C.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;HTM_MP&rdquo;)], na.rm = TRUE)
+  min(ID0_Data_H2$X220VID0_Current_TDD_C.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;HTM_MP&rdquo;)], na.rm = TRUE)</p>
+
+<p>max(ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;MB_MP_DFM&rdquo;)], na.rm = TRUE)
+  min(ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;MB_MP_DFM&rdquo;)], na.rm = TRUE)
+  max(ID0_Data_H2$X220VID0_Current_TDD_B.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;MB_MP_DFM&rdquo;)], na.rm = TRUE)
+  min(ID0_Data_H2$X220VID0_Current_TDD_B.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;MB_MP_DFM&rdquo;)], na.rm = TRUE)
+  max(ID0_Data_H2$X220VID0_Current_TDD_C.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;MB_MP_DFM&rdquo;)], na.rm = TRUE)
+  min(ID0_Data_H2$X220VID0_Current_TDD_C.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;MB_MP_DFM&rdquo;)], na.rm = TRUE)</p>
+
+<p>max(ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;MB_MP_QFM&rdquo;)], na.rm = TRUE)
+  min(ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;MB_MP_QFM&rdquo;)], na.rm = TRUE)
+  max(ID0_Data_H2$X220VID0_Current_TDD_B.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;MB_MP_QFM&rdquo;)], na.rm = TRUE)
+  min(ID0_Data_H2$X220VID0_Current_TDD_B.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;MB_MP_QFM&rdquo;)], na.rm = TRUE)
+  max(ID0_Data_H2$X220VID0_Current_TDD_C.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;MB_MP_QFM&rdquo;)], na.rm = TRUE)
+  min(ID0_Data_H2$X220VID0_Current_TDD_C.Mean.data_value.[which(ID0_Data_H2$PD == &ldquo;MB_MP_QFM&rdquo;)], na.rm = TRUE)</p>
+
+<p>install.packages(&ldquo;ggplot2&rdquo;)
+  library(ggplot2)
+  plot(ID0_Data_H2$X.Date[which(ID0_Data_H2$STAGE == 2)], ID0_Data_H2$X220VID0_Active_Power_Pa.Mean.data_value.[which(ID0_Data_H2$STAGE == 2)])
+  plot(ID0_Data_H2$X.Date, ID0_Data_H2$X220VID0_Active_Power_Pb.Mean.data_value.)
+  plot(ID0_Data_H2$X.Date, ID0_Data_H2$X220VID0_Active_Power_Pc.Mean.data_value.)</p>
+
+</body>
+
+</html>
+

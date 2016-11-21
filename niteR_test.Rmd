@@ -1,0 +1,21 @@
+
+> This is the record that I first use this.
+
+>* what??
+
+>>3. I am a boy
+
+``` {r test -ing}
+
+x <- c(1,2,3)
+
+x*x
+
+```
+``` {r}
+
+x <- c(1,2,3)
+
+x*x
+
+```
