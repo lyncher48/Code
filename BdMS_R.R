@@ -31,6 +31,14 @@ names(BdMS)
 #[73] "AHU_24.온도.PV"             "AHU_24.온도.SP"             "AHU_24.온도.가열MV"         "AHU_24.온도.냉각MV"        
 #[77] "AHU_24.냉방밸브"            "AHU_24.급기팬.상태" 
 
+idx.1 <- BdMS$DH_02.외기.절대습도
+idx.2 <- BdMS[,3]
+idx.2.preserve <- BdMS[,3, drop=F]
+View(idx.1)
+View(idx.2)
+View(idx.2.preserve)
+  
+  
 #날짜 데이터 삭제
 BdMS_TRANS <- BdMS[,-(1:1)]
 

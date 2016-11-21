@@ -4,7 +4,7 @@
 
 # library(SOAR) 캐시로 데이터를 보냄.(메모리 사용량 효율화)
 # library(data.table) 읽고, 쓰고 검색하는데 속도 단축함.
-#library(KoNLP)
+# library(KoNLP)
 # -------------------------------- 책 소개 ---------------------------------------
 # An Introduction to Statistical Learning; The Elements of Statistical Learning
 # Advanced R - http://adv-r.had.co.nz/Introduction.html
