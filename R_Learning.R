@@ -19,7 +19,11 @@
 #   data frame x[,1] or x[[1]]  -  x[,1,drop=F] or x[1]
 #
 #
-#Store()
+#Store() - 메모리에 올라온 데이터 내려줌.?
+#str(), attributes() 데이터 살펴봄.
+#텍스트 객체 함수 - sub(찾을문자, 바꿀문자, 대상데이터) 첫번째 문자를 변경, gsub() 모든 문자 변경
+
+
 ls()
 Ls()
 x
@@ -38,3 +42,4 @@ x.simplifying <- x[1]
 grep("두$|^만", z)
 which(z %in% c("만", "고"))
 attributes(cbind(x, y, z))
+str(data)

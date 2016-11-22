@@ -53,7 +53,7 @@ ID14_Data_H1 <- ID14_Data[-which(ID14_Data$STAGE == 198),]
 n <- length(ID0_Data_H1$STAGE)
 for (i in 1:n)
 {
-  which( == Stage_ref_table$ID)  
+  #which( == Stage_ref_table$ID)  
 }
 
 ####Creating Indicators
@@ -72,14 +72,14 @@ PD14 <- plyr::mapvalues(ID14_Data_H1$STAGE,
                         to = Stage_ref_table$STAGE)
 ID14_Data_H2 <- cbind(ID14_Data_H1, PD14)
 levels(factor(PD2))
-max(
-  ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == "HTM_MP")]
+#max(
+# ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == "HTM_MP")]
   
-  ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == "MB_BURNING")]
-  ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == "MB_MP_DFM")]
-  ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == "MB_MP_QFM")]
-  ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == "MB_MP_T")]
-  ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == "MB_MP_ZFA")]
+#  ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == "MB_BURNING")]
+#  ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == "MB_MP_DFM")]
+#  ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == "MB_MP_QFM")]
+#  ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == "MB_MP_T")]
+#  ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == "MB_MP_ZFA")]
   
   max(ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == "TRAY_Beading")], na.rm = TRUE)
   min(ID0_Data_H2$X220VID0_Current_TDD_A.Mean.data_value.[which(ID0_Data_H2$PD == "TRAY_Beading")], na.rm = TRUE)
