@@ -9,7 +9,7 @@
 # An Introduction to Statistical Learning; The Elements of Statistical Learning
 # Advanced R - http://adv-r.had.co.nz/Introduction.html
 # Beyesian data analysis; Doing Bayesian Data Analysis
-# 
+# Use R!, Springer - http://rd.springer.com/bookseries/6991
 # --------------------------------------------------------------------------------
 # ●simplifying Vs. preserving
 #   vector x[[1]]  -  x[1]
@@ -19,10 +19,12 @@
 #   data frame x[,1] or x[[1]]  -  x[,1,drop=F] or x[1]
 #
 #
-#Store() - 메모리에 올라온 데이터 내려줌.?
-#str(), attributes() 데이터 살펴봄.
-#텍스트 객체 함수 - sub(찾을문자, 바꿀문자, 대상데이터) 첫번째 문자를 변경, gsub() 모든 문자 변경
-
+# Store() - 메모리에 올라온 데이터 내려줌.?
+# str(), attributes() 데이터 살펴봄. table - frequency 보여
+# 텍스트 객체 함수 - sub(찾을문자, 바꿀문자, 대상데이터) 첫번째 문자를 변경, gsub() 모든 문자 변경
+# Ctrl + L : 콘솔창 지우기
+# Use R! Series - Springer
+# 
 
 ls()
 Ls()
@@ -32,14 +34,15 @@ x[[1]]
 x[1]
 x <- c(1, 2, 3)
 y <- c(2, 3, 4)
-z <- c("만두", "고기", "튀김")
+z <- c("만두", "고시우기", "튀김")
 data <- data.frame(x, y, z)
 
 ix <- data$x
 View(ix)
 x.simplifying <- x[[1]]
 x.simplifying <- x[1]
-grep("두$|^만", z)
+grep("기$|^만", z)
+grep("^고.*기$", z)
 which(z %in% c("만", "고"))
 attributes(cbind(x, y, z))
 str(data)

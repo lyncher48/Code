@@ -9,7 +9,7 @@ library(ff)
 library(reshape)
 
 #몽고DB접속
-mongo <- mongo.create(host = "165.244.244.53:10010", username = "emulususer", password = "1234lge", db = "emulus")
+mongo <- mongo.create(host = "165.244.244.53:10010", username = "emulususer", password = "!lge321", db = "emulus")
 
 #접속여부 확인
 mongo.is.connected(mongo)
@@ -22,7 +22,8 @@ mongo.get.database.collections(mongo, db = "emulus")
 
 #201510080906440393 = 2015/10/08 09:06:44.0393
 #Table ��ȸ ��?? ??��
-plot()
+
+mongo.disconnect(mongo) #몽고DB 커넥션 종료
 
 readmongo <- function(collectionnm) {
   buf <- mongo.bson.buffer.create()
@@ -40,6 +41,7 @@ readmongo <- function(collectionnm) {
   Result <- cast(DATA, formula = time_value ~ variablenm, fun.aggregate = mean,value = "data_value")
   write.csv(Result, file = paste("D://R_study/", collectionnm, ".csv", sep=""))
 }
+
 max(DATA$data_value) - min(DATA$data_value)
 readmongo <- function(collectionnm, date) {
   buf <- mongo.bson.buffer.create()
@@ -144,3 +146,5 @@ newdata <- data.frame(newdata)
 colnames(newdata) <- unique(data$variablenm)
 
 dwt
+library(rJava)
+jinit(parameters=c("-Dfile.encoding=UTF-8"))
