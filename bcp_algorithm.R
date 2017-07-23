@@ -17,3 +17,7 @@ CtrlOxMA_I1 <- as.vector(na.omit(CtrlOxMA$I1))
 bcp_I1 <- bcp(CtrlOxMA_I1)
 plot(bcp_I1)
 names(CtrlOxMA)
+nba <- read.csv("http://datasets.flowingdata.com/ppg2008.csv")
+nba$Name <- with(nba, reorder(Name, PTS))
+nba.m <- reshape::melt(nba)
+#

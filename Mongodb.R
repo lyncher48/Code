@@ -20,8 +20,11 @@ mongo.is.connected(mongo)
 #????DB Table ��ȸ
 mongo.get.database.collections(mongo, db = "emulus")
 
-#201510080906440393 = 2015/10/08 09:06:44.0393
-#Table ��ȸ ��?? ??��
+#201510080906440393 = 2015/10/08 09:06:44.03930
+#Table. ��ȸ ��?? ??��
+
+
+round(1.1111, 2)
 
 mongo.disconnect(mongo) #몽고DB 커넥션 종료
 
@@ -43,14 +46,15 @@ readmongo <- function(collectionnm) {
 }
 
 max(DATA$data_value) - min(DATA$data_value)
+
 readmongo <- function(collectionnm, date) {
   buf <- mongo.bson.buffer.create()
   mongo.bson.buffer.start.object(buf, 'time_value')
-  mongo.bson.buffer.append(buf, '$regex', paste(date, ".*", sep=""))
+  mongo.bson.buffer.append(buf, '$regex', paste("^", date, ".*", sep=""))
   mongo.bson.buffer.finish.object(buf)
   query <- mongo.bson.from.buffer(buf)
   cursor <- mongo.find.all(mongo, collectionnm, query, sort = mongo.bson.empty(),
-                           fields = mongo.bson.empty(), limit = -1L)
+                           fields = mongo.bson.empty(), limit = 0L)
   DATA <- matrix(unlist(cursor),byrow=TRUE,ncol=length(cursor[[1]]))
   colnames(DATA) <- names(cursor[[1]])
   DATA  <- as.data.frame(DATA)
@@ -59,6 +63,35 @@ readmongo <- function(collectionnm, date) {
   Result <- cast(DATA, formula = time_value ~ variablenm, fun.aggregate = mean,value = "data_value")
   write.csv(Result, file = paste("D://R_study/", collectionnm, ".csv", sep=""))
 }
+
+readmongo("emulus.ECA0004", "20170410")
+readmongo("emulus.ECA0001", "20170410")
+
+collectionnm <- "emulus.ECA0019"
+date <- "20170410"
+buf <- mongo.bson.buffer.create()
+mongo.bson.buffer.start.object(buf, 'time_value')
+mongo.bson.buffer.append(buf, '$regex', paste("^", date, ".*", sep=""))
+mongo.bson.buffer.finish.object(buf)
+query <- mongo.bson.from.buffer(buf)
+cursor <- mongo.find.all(mongo, "emulus.ECA0019", query, sort = mongo.bson.empty(),
+                         fields = mongo.bson.empty(), limit = 0L)
+DATA <- matrix(unlist(cursor),byrow=TRUE,ncol=length(cursor[[1]]))
+colnames(DATA) <- names(cursor[[1]])
+DATA  <- as.data.frame(DATA)
+DATA$data_value <- as.numeric(format(DATA$data_value, trim = TRUE))
+DATA$time_value <- strptime(substr(DATA$time_value, 1, 14), "%Y%m%d%H%M%S", tz = "GMT")
+Result <- cast(DATA, formula = time_value ~ variablenm, fun.aggregate = mean,value = "data_value")
+write.csv(Result, file = paste("D://R_study/", collectionnm, ".csv", sep=""))
+
+
+readmongo("emulus.ECA0019", "20170410")
+
+readmongo("emulus.EPF0090", "2017010208") #main
+readmongo("emulus.EPF0024", "2017010208") #main
+readmongo("emulus.EPF0104", "2017010208") #main
+readmongo("emulus.EPF0025", "2017010208") #main
+
 
 readmongo("emulus.EGB0046", "20160817") #main
 
@@ -122,8 +155,6 @@ date = "20160817"
   Result <- cast(DATA, formula = time_value ~ variablenm, fun.aggregate = mean,value = "data_value")
   write.csv(Result, file = paste("D://R_study/", collectionnm, ".csv", sep=""))
 
-
-  
   readmongo
   variablenm <- c("gap_latch_top", "gap_latch_top","gap_latch_top","gap_latch_top", "gap_latch_top", "gap_latch_mid", "gap_latch_mid", "gap_latch_mid", "gap_latch_mid")
   variable_data_float <- c(5, 6, 7, 8, 9, 6, 7, 8, 9)

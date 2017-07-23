@@ -26,6 +26,13 @@
 # Use R! Series - Springer
 # 
 
+compelete.cases
+
+install.packages("e1071")
+library(e1071)
+install.packages("caret")
+library(caret)
+??confusionMatrix
 ls()
 Ls()
 x
@@ -34,9 +41,12 @@ x[[1]]
 x[1]
 x <- c(1, 2, 3)
 y <- c(2, 3, 4)
-z <- c("만두", "고시우기", "튀김")
+z <- c("만두", "고시우기", NA)
 data <- data.frame(x, y, z)
 
+library(stats)
+is.na
+complete.cases(data)
 ix <- data$x
 View(ix)
 x.simplifying <- x[[1]]
