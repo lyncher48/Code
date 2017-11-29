@@ -64,17 +64,47 @@ readmongo <- function(collectionnm, date) {
   write.csv(Result, file = paste("D://R_study/", collectionnm, ".csv", sep=""))
 }
 
+readmongoRange <- function(collectionnm, startdate, enddate) {
+  buf <- mongo.bson.buffer.create()
+  mongo.bson.buffer.start.object(buf, 'time_value')
+  mongo.bson.buffer.append(buf, '$gte', paste0(startdate, "000000000"))
+  mongo.bson.buffer.append(buf, '$lte', paste0(enddate, "000000000"))
+  mongo.bson.buffer.finish.object(buf)
+  query <- mongo.bson.from.buffer(buf)
+  cursor <- mongo.find.all(mongo, collectionnm, query, sort = mongo.bson.empty(),
+                           fields = mongo.bson.empty(), limit = 0L)
+  DATA <- matrix(unlist(cursor),byrow=TRUE,ncol=length(cursor[[1]]))
+  colnames(DATA) <- names(cursor[[1]])
+  DATA  <- as.data.frame(DATA)
+  DATA$data_value <- as.numeric(format(DATA$data_value, trim = TRUE))
+  DATA$time_value <- strptime(substr(DATA$time_value, 1, 14), "%Y%m%d%H%M%S", tz = "GMT")
+  Result <- cast(DATA, formula = time_value ~ variablenm, fun.aggregate = mean,value = "data_value")
+  write.csv(Result, file = paste("D://R_study/", collectionnm, ".csv", sep=""))
+}
+
 readmongo("emulus.ECA0004", "20170410")
 readmongo("emulus.ECA0001", "20170410")
 
-collectionnm <- "emulus.ECA0019"
-date <- "20170410"
+
 buf <- mongo.bson.buffer.create()
 mongo.bson.buffer.start.object(buf, 'time_value')
 mongo.bson.buffer.append(buf, '$regex', paste("^", date, ".*", sep=""))
 mongo.bson.buffer.finish.object(buf)
 query <- mongo.bson.from.buffer(buf)
-cursor <- mongo.find.all(mongo, "emulus.ECA0019", query, sort = mongo.bson.empty(),
+cursor <- mongo.find.all(mongo, "EGB0081", query, sort = mongo.bson.empty(),
+                         fields = mongo.bson.empty(), limit = 0L)
+
+readmongo("emulus.EGB0081", "20170405") 
+
+
+collectionnm <- "emulus.ECA0019"
+date <- "20170410"
+buf <- mongo.bson.buffer.create()
+mongo.bson.buffer.start.object(buf, 'time_value')
+mongo.bson.buffer.append(buf, '$regex', paste("^", 20171126, ".*", sep=""))
+mongo.bson.buffer.finish.object(buf)
+query <- mongo.bson.from.buffer(buf)
+cursor <- mongo.find.all(mongo, "emulus.EGB0081", query, sort = mongo.bson.empty(),
                          fields = mongo.bson.empty(), limit = 0L)
 DATA <- matrix(unlist(cursor),byrow=TRUE,ncol=length(cursor[[1]]))
 colnames(DATA) <- names(cursor[[1]])
