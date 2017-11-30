@@ -50,9 +50,8 @@ OverlapSplit <- function(x,size=1,overlap=0, complete = FALSE){
 }
 
 for(i in 1:length(dir)) {
-  
   #hampel(Laser[,2], 5, t0 = 3)
-  Data <- OverlapSplit(MESA_ICP_1[1:30,2], size=6, overlap=1, TRUE)
+  Data <- OverlapSplit(MESA_ICP_1[1:30,], size=6, overlap=1, TRUE)
 }
 
 size = 7
