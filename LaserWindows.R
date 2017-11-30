@@ -19,8 +19,10 @@ OverlapSplit <- function(x,size=1,overlap=0){
     stop("Data set has more than 2 rows.")
   
   nrows <- NROW(x)
+  nsplit <- floor(length(x)/(size - overlap))
   #nperdf <- ceiling( (nrows + overlap*nsplit) / (nsplit+1) )
-  start <- seq(1, floor(length(x)/size + 1)*(size-overlap)+1, by= size)
+  #start <- seq(1, floor(length(x)/size + 1)*(size-overlap)+1, by= size)
+  start <- seq(1, nsplit*(overlap) + (size-overlap), by= nsplit)
   
   if( size-overlap > 0 )
     stop("Size must be larger than overlap.")
@@ -36,8 +38,8 @@ dir <- list.files(path = "~/code/Laser", full.names = TRUE, recursive = TRUE)
 dir <- list.files(path = "D:/Rproject/code/Laser", full.names = TRUE, recursive = TRUE)
 
 size = 10
-
-
+length(x)/(size - overlap)
+floor(10/(6-3))
 i = 1
 #csv 읽기
 for(i in 1:length(dir)) {
